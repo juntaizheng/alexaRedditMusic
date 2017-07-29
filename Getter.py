@@ -37,7 +37,7 @@ titles = []
 urls = []
 #loop that gets titles and urls of songs
 for submission in reddit.subreddit('music').top('day'):
-    if counter == 5:
+    if counter == 3:
         break
     elif (('youtube.com' in submission.url ) or ('youtu.be' in submission.url)):
         print("Video title: " + submission.title.encode(sys.stdout.encoding, errors='ignore').decode('UTF-8', errors='ignore'))
@@ -55,16 +55,22 @@ with open("alexa/history/" + time.strftime("%d.%m.%Y") + '.txt', 'w') as f:
         counter += 1
 
 #clears music directory
-for f in os.listdir("alexa/music/"):
-    print('Removing: ' + f + " from music")
-    os.remove('alexa/music/' + f)
+counter = 0
+while counter < 3:
+    for f in os.listdir("alexa/music/" + str(counter)):
+        print('Removing: ' + f + " from music")
+        os.remove('alexa/music/' + str(counter) + "/" + f)
+    counter += 1
 
 print("\n")
 
 #clears converted directory
-for f in os.listdir("alexa/converted/"):
-    print('Removing: ' + f + " from converted")
-    os.remove('alexa/converted/' + f)
+counter = 0
+while counter < 3:
+    for f in os.listdir("alexa/converted/"+ str(counter)):
+        print('Removing: ' + f + " from converted")
+        os.remove('alexa/converted/' + str(counter) + "/" + f)
+    counter += 1
 
 print("\n")
 
@@ -78,7 +84,7 @@ for url in urls:
         video = pafy.new(urlparse(url).query[2:])
         bestaudio = video.getbestaudio(preftype = 'webm')
         print("Downloading: "+ video.title)
-        bestaudio.download(filepath="alexa/music/")
+        bestaudio.download(filepath="alexa/music/" + str(counter))
         url = 1
         counter += 1
         #catches errors and ignores the song if error occurs
@@ -94,14 +100,17 @@ print("\n")
 AudioSegment.converter = "C:/ffmpeg/bin/ffmpeg.exe"
 
 #converting webm to mp3
-for f in os.listdir("alexa/music/"):
-    print("Converting " + f + "...")
-    #splices only the first ten minutes of the song
-    first_ten = AudioSegment.from_file("C:/Users/Wearable/Desktop/redditMusic/alexa/music/" + f, format = "webm")[:600*1000]
-    first_ten.export("C:/Users/Wearable/Desktop/redditMusic/alexa/converted/" + f[:-4] + "mp3", format="mp3")
-    print("Conversion successful.")
+counter = 0
+while counter < 3: 
+    for f in os.listdir("alexa/music/" + str(counter)):
+        print("Converting " + f + "...")
+        #splices only the first ten minutes of the song
+        first_ten = AudioSegment.from_file("C:/Users/Wearable/Desktop/redditMusic/alexa/music/" + str(counter) + "/" + f, format = "webm")[:600*1000]
+        first_ten.export("C:/Users/Wearable/Desktop/redditMusic/alexa/converted/" + str(counter) + "/" + f[:-4] + "mp3", format="mp3")
+        print("Conversion successful.")
+    counter += 1
 
-print("\n")
+print()
 
 #checks for version control
 try:
@@ -139,18 +148,22 @@ print("\n")
 print("Bucket emptying successful. \n")
 #uploading converted music to s3
 
-for f in os.listdir("alexa/converted/"):
-    print("Uploading " + f + " to S3...")
-    client.upload_file("alexa/converted/" + f, AWS_BUCKET_NAME, f.replace('/', ' '))
+counter = 0
+while counter < 3:
+    for f in os.listdir("alexa/converted/" + str(counter)):
+        print("Uploading " + f + " to S3...")
+        client.upload_file("alexa/converted/" + str(counter) + "/" + f, AWS_BUCKET_NAME, f.replace('/', ' '))
+    counter += 1
 print('File upload success.')
 
-#format of time: "yyyy-MM-dd'T'HH:mm:ss'.0Z'"
-date = time.strftime("%Y-%m-%dT%H:%M:%S.0Z")
 
 con = boto.connect_s3(AWS_ACCESS_KEY, AWS_SECRET_KEY)
 bucket=con.get_bucket(AWS_BUCKET_NAME)
 counter = 0
 for key in bucket.get_all_keys():
+    #format of time: "yyyy-MM-dd'T'HH:mm:ss'.0Z'"
+    year = str((int(time.strftime("%Y")) - counter))
+    date = time.strftime(year + "-%m-%dT%H:%M:%S.0Z")
     ytlist.append({'uid':counter,'updateDate':date,'titleText':key.name[:-4],'mainText':"",'streamUrl':key.generate_url(query_auth = False, expires_in = 0)})
     counter += 1
 
@@ -166,13 +179,22 @@ with io.open('data.json', 'w', encoding='utf8') as outfile:
 client.upload_file("data.json", AWS_BUCKET_NAME, 'musicData.json')
 
 #clears music directory
-for f in os.listdir("alexa/music/"):
-    print('Removing: ' + f + " from music")
-    os.remove('alexa/music/' + f)
+counter = 0
+while counter < 3:
+    for f in os.listdir("alexa/music/" + str(counter)):
+        print('Removing: ' + f + " from music")
+        os.remove('alexa/music/' + str(counter) + "/" + f)
+    counter += 1
 
 print("\n")
 
 #clears converted directory
-for f in os.listdir("alexa/converted/"):
-    print('Removing: ' + f + " from converted")
-    os.remove('alexa/converted/' + f)
+counter = 0
+while counter < 3:
+    for f in os.listdir("alexa/converted/"+ str(counter)):
+        print('Removing: ' + f + " from converted")
+        os.remove('alexa/converted/' + str(counter) + "/" + f)
+    counter += 1
+
+print()
+print("Script done.")

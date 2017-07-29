@@ -1,37 +1,23 @@
 [
     {
         "mainText": "",
-        "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/August%20Burns%20Red%20-%20Invisible%20Enemy%20%28Official%20Music%20Video%29.mp3",
-        "titleText": "August Burns Red - Invisible Enemy (Official Music Video)",
-        "uid": 0,
-        "updateDate": "2017-07-28T17:11:06.0Z"
-    },
-    {
-        "mainText": "",
         "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/Gogol%20Bordello%20%20%20Supertheory%20of%20Supereverything.mp3",
         "titleText": "Gogol Bordello   Supertheory of Supereverything",
-        "uid": 1,
-        "updateDate": "2017-07-28T17:11:06.0Z"
+        "uid": 0,
+        "updateDate": "2017-07-28T18:04:04.0Z"
     },
     {
         "mainText": "",
         "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/New%20Order%20-%20Blue%20Monday%20lyrics.mp3",
         "titleText": "New Order - Blue Monday lyrics",
-        "uid": 2,
-        "updateDate": "2017-07-28T17:11:06.0Z"
-    },
-    {
-        "mainText": "",
-        "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/Nightwish%20-%20Nemo%20%5BOFFICIAL%20VIDEO%5D.mp3",
-        "titleText": "Nightwish - Nemo [OFFICIAL VIDEO]",
-        "uid": 3,
-        "updateDate": "2017-07-28T17:11:06.0Z"
+        "uid": 1,
+        "updateDate": "2016-07-28T18:04:04.0Z"
     },
     {
         "mainText": "",
         "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/Surrender.mp3",
         "titleText": "Surrender",
-        "uid": 4,
-        "updateDate": "2017-07-28T17:11:06.0Z"
+        "uid": 2,
+        "updateDate": "2015-07-28T18:04:04.0Z"
     }
 ]
