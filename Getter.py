@@ -11,20 +11,6 @@ import io
 from pydub import AudioSegment
 from credentials import AWS_ACCESS_KEY, AWS_BUCKET_NAME, AWS_SECRET_KEY, CLIENT_ID, CLIENT_SECRET, USER_AGENT
 
-
-#currently unused due to urlparse.query
-def video_id(value):
-    #param value: string of youtube video
-    #example: https://www.youtube.com/watch?v=1vJLQsfU-WM
-    index = value.find('=')
-    if index != -1:
-        return value[index + 1:index + 12]
-    # fail?
-    elif value.find('youtu.be'):
-        index = value.find('e')
-        return value[index + 2:index + 13]
-    return None
-
 #gain authorization to scan reddit through praw
 reddit = praw.Reddit(client_id= CLIENT_ID,
                      client_secret=CLIENT_SECRET,
@@ -160,10 +146,10 @@ print('File upload success.')
 con = boto.connect_s3(AWS_ACCESS_KEY, AWS_SECRET_KEY)
 bucket=con.get_bucket(AWS_BUCKET_NAME)
 counter = 0
-for key in bucket.get_all_keys():
+orderedList = sorted(bucket.get_all_keys(), key=lambda k: k.last_modified)
+for key in orderedList:
     #format of time: "yyyy-MM-dd'T'HH:mm:ss'.0Z'"
-    year = str((int(time.strftime("%Y")) - counter))
-    date = time.strftime(year + "-%m-%dT%H:%M:%S.0Z")
+    date = time.strftime("%Y-%m-%dT%H:%M:%S.0Z")
     ytlist.append({'uid':counter,'updateDate':date,'titleText':key.name[:-4],'mainText':"",'streamUrl':key.generate_url(query_auth = False, expires_in = 0)})
     counter += 1
 

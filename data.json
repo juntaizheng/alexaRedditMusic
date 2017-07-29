@@ -1,23 +1,23 @@
 [
     {
         "mainText": "",
-        "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/Gogol%20Bordello%20%20%20Supertheory%20of%20Supereverything.mp3",
-        "titleText": "Gogol Bordello   Supertheory of Supereverything",
-        "uid": 0,
-        "updateDate": "2017-07-28T18:04:04.0Z"
-    },
-    {
-        "mainText": "",
         "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/New%20Order%20-%20Blue%20Monday%20lyrics.mp3",
         "titleText": "New Order - Blue Monday lyrics",
-        "uid": 1,
-        "updateDate": "2016-07-28T18:04:04.0Z"
+        "uid": 0,
+        "updateDate": "2017-07-28T18:15:42.0Z"
     },
     {
         "mainText": "",
         "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/Surrender.mp3",
         "titleText": "Surrender",
+        "uid": 1,
+        "updateDate": "2017-07-28T18:15:42.0Z"
+    },
+    {
+        "mainText": "",
+        "streamUrl": "https://alexamusictest.s3.amazonaws.com:443/Gogol%20Bordello%20%20%20Supertheory%20of%20Supereverything.mp3",
+        "titleText": "Gogol Bordello   Supertheory of Supereverything",
         "uid": 2,
-        "updateDate": "2015-07-28T18:04:04.0Z"
+        "updateDate": "2017-07-28T18:15:42.0Z"
     }
 ]
